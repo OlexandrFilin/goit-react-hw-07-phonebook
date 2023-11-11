@@ -30,6 +30,7 @@ export const App = () => {
       handleFilter={handelInputChangeFilter}
         
       />
+           
       <ContactList
        
       />
