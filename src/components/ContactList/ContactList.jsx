@@ -32,7 +32,7 @@ const dispatch = useDispatch();
             <BtnDelCont type="button" onClick={() => onRemoveContact(el.id)}>
               del
             </BtnDelCont>
-            {el.name} : {el.number}
+            {el.name} : {el.phone}
           </ItemContLst>
         );
       })}

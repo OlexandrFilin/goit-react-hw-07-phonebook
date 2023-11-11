@@ -1,8 +1,9 @@
 import { useDispatch} from 'react-redux';
 import { ContactForm  } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
+import { fetchContacts } from './redux/api';
 import { Filter } from './Filter/Filter';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { setFilter } from './redux/filterSlice';
 export const App = () => {
 
@@ -10,6 +11,13 @@ export const App = () => {
   const handelInputChangeFilter = e => {
   dispatch(setFilter(e.currentTarget.value));
   };
+
+// Завантажуємо контакти
+ useEffect(()=>{ dispatch(fetchContacts())},[dispatch]);
+
+
+
+
   
   return (
     <>
