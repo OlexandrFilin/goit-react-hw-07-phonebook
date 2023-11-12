@@ -7,6 +7,14 @@ const initialState = {
   isLoading: false,
   error: null,
 };
+const handlePending=(state)=>{
+  state.isLoading = true;
+}
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
+
 export const contactSlice = createSlice({
   name: 'contacts',
   initialState,
@@ -56,35 +64,24 @@ export const contactSlice = createSlice({
   //   },
   // },
 
+
 extraReducers: (builder) => {
   builder
-    .addCase(fetchContacts.pending, (state) => {
-      state.isLoading = true;
-    })
+    .addCase(fetchContacts.pending,handlePending)
     .addCase(fetchContacts.fulfilled, (state, action) => {
       state.isLoading = false;
       state.error = null;
       state.contactsUser = action.payload;
     })
-    .addCase(fetchContacts.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    })
-    .addCase(addContact.pending, (state) => {
-      state.isLoading = true;
-    })
+    .addCase(fetchContacts.rejected, handleRejected)
+    .addCase(addContact.pending, handlePending)
     .addCase(addContact.fulfilled, (state, action) => {
       state.isLoading = false;
       state.error = null;
       state.contactsUser = action.payload;
     })
-    .addCase(addContact.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    })
-    .addCase(deleteContact.pending, (state) => {
-      state.isLoading = true;
-    })
+    .addCase(addContact.rejected, handleRejected)
+    .addCase(deleteContact.pending, handlePending)
     .addCase(deleteContact.fulfilled, (state, action) => {
       state.isLoading = false;
       state.error = null;
@@ -93,10 +90,7 @@ extraReducers: (builder) => {
       );
       state.contactsUser.splice(index, 1);
     })
-    .addCase(deleteContact.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    });
+    .addCase(deleteContact.rejected, handleRejected);
 },
   // extraReducers: builder => {
   //   builder.addCase(fetchContacts.pending, (state) => {
